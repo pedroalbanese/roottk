@@ -1,4 +1,4 @@
-# :albania: EDGE Toolkit مجموعة أدوات متطورة
+# :albania: ROOT Toolkit مجموعة أدوات متطورة
 [![ISC License](http://img.shields.io/badge/license-ISC-blue.svg)](https://github.com/pedroalbanese/roottk/blob/master/LICENSE.md) 
 [![GoDoc](https://godoc.org/github.com/pedroalbanese/roottk?status.png)](http://godoc.org/github.com/pedroalbanese/roottk)
 [![GitHub downloads](https://img.shields.io/github/downloads/pedroalbanese/roottk/total.svg?logo=github&logoColor=white)](https://github.com/pedroalbanese/roottk/releases)
