@@ -294,122 +294,122 @@ These curves are elliptic curves over a prime field, just like the NIST or Brain
 ## V. Examples أمثلة Shembuj 
 #### Asymmetric keypair generation (default ECDSA):
 ```sh
-./edgetk -keygen [-algorithm prime192v3]
-./edgetk -pkeyutl text -key $prvkey [-algorithm prime192v3]
+./roottk -keygen [-algorithm prime192v3]
+./roottk -pkeyutl text -key $prvkey [-algorithm prime192v3]
 ```
 #### Symmetric key generation (default 256):
 ```sh
-./edgetk -rand [-bits 64|128|192|256]
+./roottk -rand [-bits 64|128|192|256]
 ```
 #### Digital signature:
 ```sh
-./edgetk -sign -key $prvkey < file.ext > sign.txt
+./roottk -sign -key $prvkey < file.ext > sign.txt
 sign=$(cat sign.txt|awk '{print $2}')
-./edgetk -verify -key $pubkey -signature $sign < file.ext
+./roottk -verify -key $pubkey -signature $sign < file.ext
 echo $?
 ```
 #### Shared key agreement (ECDH/X25519/VKO) with a given bit-length output:
 ```sh
-./edgetk -pkeyutl derive -key $prvkey -pub $pubkey [-bits 64|128|192|256]
+./roottk -pkeyutl derive -key $prvkey -pub $pubkey [-bits 64|128|192|256]
 ```
 #### Encryption/decryption with asymmetric cipher (EC-based):
 ```sh
-./edgetk -pkeyutl enc -key $pubkey -algorithm sm2 < plaintext.ext > ciphertext.ext 
-./edgetk -pkeyutl dec -key $prvkey -algorithm sm2 < ciphertext.ext 
+./roottk -pkeyutl enc -key $pubkey -algorithm sm2 < plaintext.ext > ciphertext.ext 
+./roottk -pkeyutl dec -key $prvkey -algorithm sm2 < ciphertext.ext 
 ```
 #### Encryption/decryption with symmetric block cipher (default AES):
 ```sh
-./edgetk -crypt enc -key $256bitkey < plaintext.ext > ciphertext.ext
-./edgetk -crypt dec -key $256bitkey < ciphertext.ext > plaintext.ext
+./roottk -crypt enc -key $256bitkey < plaintext.ext > ciphertext.ext
+./roottk -crypt dec -key $256bitkey < ciphertext.ext > plaintext.ext
 ```
 #### Encryption/decryption with block cipher with AEAD mode (AES-GCM):
 ```sh
-./edgetk -crypt enc -mode GCM [-info "AAD"] -key $256bitkey < plaintext.ext
-./edgetk -crypt dec -mode GCM [-info "AAD"] -key $256bitkey < ciphertext.ext
+./roottk -crypt enc -mode GCM [-info "AAD"] -key $256bitkey < plaintext.ext
+./roottk -crypt dec -mode GCM [-info "AAD"] -key $256bitkey < ciphertext.ext
 ```
 #### Cipher-based MAC:
 ```sh
-./edgetk -mac cmac -key $128bitkey < file.ext
+./roottk -mac cmac -key $128bitkey < file.ext
 ```
 #### SHA256-based HMAC:
 ```sh
-./edgetk -mac hmac -key $256bitkey < file.ext
+./roottk -mac hmac -key $256bitkey < file.ext
 ```
 #### KDF (password-based key derivation function):
 ```sh
-./edgetk -kdf pbkdf2 -key "pass" -iter 10000 -salt "salt"
-./edgetk -kdf scrypt -key "pass" -iter 8 -salt "salt"
+./roottk -kdf pbkdf2 -key "pass" -iter 10000 -salt "salt"
+./roottk -kdf scrypt -key "pass" -iter 8 -salt "salt"
 ```
 #### KDF (HMAC-based key derivation function):
 ```sh
-./edgetk -kdf hkdf -key "IKM" -salt "salt" -info "AD"
+./roottk -kdf hkdf -key "IKM" -salt "salt" -info "AD"
 ```
 #### Note:
 KDF function can be combined with CRYPT and HMAC commands:
 ```sh
-./edgetk -crypt enc -kdf scrypt -key "pass" < plaintext.ext > ciphertext.ext
-./edgetk -mac hmac -kdf pbkdf2 -key "pass" -iter 10000 -salt "salt" < file.ext
+./roottk -crypt enc -kdf scrypt -key "pass" < plaintext.ext > ciphertext.ext
+./roottk -mac hmac -kdf pbkdf2 -key "pass" -iter 10000 -salt "salt" < file.ext
 ```
 
 #### Symmetric encryption/decryption with ZUC/Snow3G stream ciphers:
 ```sh
-./edgetk -crypt [eea3|uea2] -key $128bitkey < plaintext.ext > ciphertext.ext
-./edgetk -crypt [eea3|uea2] -key $128bitkey < ciphertext.ext > plaintext.ext
+./roottk -crypt [eea3|uea2] -key $128bitkey < plaintext.ext > ciphertext.ext
+./roottk -crypt [eea3|uea2] -key $128bitkey < ciphertext.ext > plaintext.ext
 ```
 #### MAC-EIA3/UIA2 (3GPP message authentication code):
 ```sh
-./edgetk -mac [eia3|uia2] -key $128bitkey < file.ext
-./edgetk -mac [eia3|uia2] -key $128bitkey -signature $32bitmac < file.ext
+./roottk -mac [eia3|uia2] -key $128bitkey < file.ext
+./roottk -mac [eia3|uia2] -key $128bitkey -signature $32bitmac < file.ext
 ```
 
 #### Shred (data sanitization method, 25 iterations):
 ```sh
-./edgetk -shred keypair.ini -iter 25
+./roottk -shred keypair.ini -iter 25
 ```
 #### Bin to Hex/Hex to Bin:
 ```sh
-./edgetk -util hexenc < file.ext > file.hex
-./edgetk -util hexdec < file.hex > file.ext
+./roottk -util hexenc < file.ext > file.hex
+./roottk -util hexdec < file.hex > file.ext
 -
-./edgetk -util hexdump < file.ext
-./edgetk -util pwgen|./edgetk -util hexdump
+./roottk -util hexdump < file.ext
+./roottk -util pwgen|./roottk -util hexdump
 ```
 #### Bin to Base64/Base64 to Bin:
 ```sh
-./edgetk -util b64enc < file.ext > file.b64
-./edgetk -util b64dec < file.b64 > file.ext
+./roottk -util b64enc < file.ext > file.b64
+./roottk -util b64dec < file.b64 > file.ext
 ```
 #### String compression LZMA/BZIP2/GZIP/Brotli:
 ```sh
-./edgetk -util compress -algorithm lzma < file.ext > file.lzma
-./edgetk -util decompress -algorithm lzma < file.lzma > file.ext
+./roottk -util compress -algorithm lzma < file.ext > file.lzma
+./roottk -util decompress -algorithm lzma < file.lzma > file.ext
 ```
 #### TCP/IP Dump/Send:
 ```sh
-./edgetk -tcp ip > PublicIP.txt
-./edgetk -tcp dump [-pub "8081"] > Token.jwt
-./edgetk -tcp send [-pub "127.0.0.1:8081"] < Token.jwt
+./roottk -tcp ip > PublicIP.txt
+./roottk -tcp dump [-pub "8081"] > Token.jwt
+./roottk -tcp send [-pub "127.0.0.1:8081"] < Token.jwt
 ```
 #### TCP/IP Listen/Dial:
 ```sh
-./edgetk -tcp listen [-pub "8081"]
-./edgetk -tcp dial [-pub "127.0.0.1:8081"]
+./roottk -tcp listen [-pub "8081"]
+./roottk -tcp dial [-pub "127.0.0.1:8081"]
 ```
 #### Random Art (Public Key Fingerprint):
 ```sh
-./edgetk -util fingerprint -key $pubkey
-./edgetk -util fingerprint -key - < Pubkey.txt
+./roottk -util fingerprint -key $pubkey
+./roottk -util fingerprint -key - < Pubkey.txt
 ```
 #### Key Split/Join:
 ```sh
-./edgetk -util splitkey -key $privkey
-./edgetk -util splitkey -key - < Privkey.txt > split.txt
-./edgetk -util joinkey < split.txt
+./roottk -util splitkey -key $privkey
+./roottk -util splitkey -key - < Privkey.txt > split.txt
+./roottk -util joinkey < split.txt
 ```
 #### Password Generator/Validator:
 ```sh
-./edgetk -util pwgen [-bits 160] > passwd.txt
-./edgetk -util entropy -bits 128 -key '-' < passwd.txt
+./roottk -util pwgen [-bits 160] > passwd.txt
+./roottk -util entropy -bits 128 -key '-' < passwd.txt
 echo $?
 ```
 Passwords must have at least 128-bit of entropy, otherwise exit code is 1.
