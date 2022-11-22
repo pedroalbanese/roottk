@@ -4,7 +4,7 @@ import (
 	"crypto/cipher"
 	"crypto/subtle"
 	"errors"
-	"github.com/pedroalbanese/edgetk/ocb/byteutil"
+	"github.com/pedroalbanese/roottk/ocb/byteutil"
 )
 
 const (
