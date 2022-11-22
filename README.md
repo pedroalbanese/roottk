@@ -1,10 +1,8 @@
 # ROOT Toolkit مجموعة أدوات متطورة
 [![ISC License](http://img.shields.io/badge/license-ISC-blue.svg)](https://github.com/pedroalbanese/roottk/blob/master/LICENSE.md) 
 [![GoDoc](https://godoc.org/github.com/pedroalbanese/roottk?status.png)](http://godoc.org/github.com/pedroalbanese/roottk)
-[![GitHub downloads](https://img.shields.io/github/downloads/pedroalbanese/roottk/total.svg?logo=github&logoColor=white)](https://github.com/pedroalbanese/roottk/releases)
 [![Go Report Card](https://goreportcard.com/badge/github.com/pedroalbanese/roottk)](https://goreportcard.com/report/github.com/pedroalbanese/roottk)
 [![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/pedroalbanese/roottk)](https://golang.org)
-[![GitHub release (latest by date)](https://img.shields.io/github/v/release/pedroalbanese/roottk)](https://github.com/pedroalbanese/roottk/releases)
 
 <div align="center">
 </div>
