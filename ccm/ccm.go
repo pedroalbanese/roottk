@@ -1,7 +1,6 @@
 // Implement CCM as per RFC 3610 - https://tools.ietf.org/html/rfc3610
 // Counter with CBC-MAC
 //
-//
 // From: http://www.codeproject.com/Articles/21877/Applied-Crypto-Block-Ciphers
 //
 // "FIPS 81 specifies two MACs: CFB and CBC. CBC-MAC, which is based
