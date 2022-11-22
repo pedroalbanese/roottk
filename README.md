@@ -1,4 +1,4 @@
-# :albania: ROOT Toolkit مجموعة أدوات متطورة
+# ROOT Toolkit مجموعة أدوات متطورة
 [![ISC License](http://img.shields.io/badge/license-ISC-blue.svg)](https://github.com/pedroalbanese/roottk/blob/master/LICENSE.md) 
 [![GoDoc](https://godoc.org/github.com/pedroalbanese/roottk?status.png)](http://godoc.org/github.com/pedroalbanese/roottk)
 [![GitHub downloads](https://img.shields.io/github/downloads/pedroalbanese/roottk/total.svg?logo=github&logoColor=white)](https://github.com/pedroalbanese/roottk/releases)
@@ -7,7 +7,6 @@
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/pedroalbanese/roottk)](https://github.com/pedroalbanese/roottk/releases)
 
 <div align="center">
- <img src="EDGETk.png" width="25%" height="25%"></img>
 </div>
 
 ### α Command-line ECC Integrated Security Suite
@@ -440,7 +439,7 @@ Passwords must have at least 128-bit of entropy, otherwise exit code is 1.
   - Suggesting new features or enhancements
   - Improve/fix documentation
 
-## VIII. Credits
+## VIII. Acknoledgment
 
 - [Sergey Matveev](http://www.cypherpunks.ru/) (GoGOST Library Author, Contributor)
 - [RyuaNerin](http://github.com/RyuaNerin) (go-krypto Library Author)
@@ -449,7 +448,7 @@ Passwords must have at least 128-bit of entropy, otherwise exit code is 1.
 - [Paul Scheduikat](https://github.com/lu4p) (Contributor, Introduction to the use of flags in Go)
 - [Chenxu](https://github.com/czdsdo) (GMSM Library Author, Contributor)
 - [Suzhou Tongji Fintech Research Institute](https://github.com/tjfoc) (GMSM Library Author)
-- [Damian Gryski](https://github.com/dgryski) (Skipjack, Present, Twine, Misty1 Libraries Author, Contributor)
+- [Damian Gryski](https://github.com/dgryski) (Anubis, Present, SipHash, Misty1 Libraries Author, Contributor)
 
 ## Ω License
 
