@@ -6,7 +6,7 @@
 #include <TabConstants.au3>
 #include <WindowsConstants.au3>
 #Region ### START Koda GUI section ### Form=h:\prgm\programim\autoit-v3\scite\koda\forms\prot1.kxf
-$Form1_1 = GUICreate("EDGE Toolkit GUI - Copyright © 2020-2022 ALBANESE Research Lab ", 710, 497, 191, 122)
+$Form1_1 = GUICreate("AUTO Toolkit GUI - Copyright © 2020-2022 ALBANESE Research Lab ", 710, 497, 191, 122)
 $Tab1 = GUICtrlCreateTab(16, 8, 681, 473)
 $TabSheet1 = GUICtrlCreateTabItem("Diffie-Hellman")
 $Label2 = GUICtrlCreateLabel("Elliptic Curve:", 448, 48, 68, 17)
