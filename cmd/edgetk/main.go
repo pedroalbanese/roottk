@@ -58,6 +58,8 @@ import (
 	"unicode/utf8"
 	"unsafe"
 
+	b32 "encoding/base32"
+	b64 "encoding/base64"
 	"github.com/RyuaNerin/go-krypto/aria"
 	"github.com/RyuaNerin/go-krypto/hight"
 	"github.com/RyuaNerin/go-krypto/lea"
@@ -67,6 +69,7 @@ import (
 	"github.com/dgryski/go-anubis"
 	"github.com/dgryski/go-kcipher2"
 	"github.com/dsnet/compress/bzip2"
+	zuc2 "github.com/emmansun/gmsm/zuc"
 	"github.com/pedroalbanese/IGE-go/ige"
 	"github.com/pedroalbanese/b85"
 	"github.com/pedroalbanese/bb4"
@@ -90,6 +93,7 @@ import (
 	"github.com/pedroalbanese/gmsm/sm2"
 	"github.com/pedroalbanese/gmsm/sm3"
 	"github.com/pedroalbanese/gmsm/sm4"
+	c509 "github.com/pedroalbanese/gmsm/x509"
 	"github.com/pedroalbanese/gmtls"
 	"github.com/pedroalbanese/go-a51"
 	"github.com/pedroalbanese/go-chaskey"
@@ -100,6 +104,7 @@ import (
 	"github.com/pedroalbanese/go-external-ip"
 	"github.com/pedroalbanese/go-idea"
 	"github.com/pedroalbanese/go-misty1"
+	passwordvalidator "github.com/pedroalbanese/go-password-validator"
 	"github.com/pedroalbanese/go-rc5"
 	"github.com/pedroalbanese/go-ripemd"
 	"github.com/pedroalbanese/go-skip32"
@@ -119,6 +124,7 @@ import (
 	"github.com/pedroalbanese/gost2001"
 	"github.com/pedroalbanese/gost2012"
 	"github.com/pedroalbanese/gostribog"
+	groestl512 "github.com/pedroalbanese/groestl"
 	"github.com/pedroalbanese/haraka"
 	"github.com/pedroalbanese/isaac"
 	"github.com/pedroalbanese/koblitz"
@@ -128,6 +134,7 @@ import (
 	"github.com/pedroalbanese/lzma"
 	"github.com/pedroalbanese/oakley192"
 	"github.com/pedroalbanese/oakley256"
+	"github.com/pedroalbanese/ocb"
 	"github.com/pedroalbanese/pearson"
 	"github.com/pedroalbanese/pmac"
 	"github.com/pedroalbanese/pmac/pmac64"
@@ -137,10 +144,10 @@ import (
 	"github.com/pedroalbanese/radix64"
 	"github.com/pedroalbanese/randomart"
 	"github.com/pedroalbanese/roottk/ccm"
+	CFB8 "github.com/pedroalbanese/roottk/cfb8"
 	"github.com/pedroalbanese/roottk/eax"
 	"github.com/pedroalbanese/roottk/groestl"
 	"github.com/pedroalbanese/roottk/jh"
-	"github.com/pedroalbanese/roottk/ocb"
 	"github.com/pedroalbanese/roottk/threefish"
 	"github.com/pedroalbanese/rtea"
 	"github.com/pedroalbanese/seahash"
@@ -156,7 +163,10 @@ import (
 	"github.com/pedroalbanese/siphash"
 	"github.com/pedroalbanese/siv"
 	"github.com/pedroalbanese/skein"
+	skeincipher "github.com/pedroalbanese/skein-1"
 	"github.com/pedroalbanese/skein/skein256"
+	sm2p256v1 "github.com/pedroalbanese/sm2"
+	sm9p256v1 "github.com/pedroalbanese/sm9"
 	"github.com/pedroalbanese/snow3g"
 	"github.com/pedroalbanese/snow3g/uea2"
 	"github.com/pedroalbanese/snow3g/uia2"
@@ -171,16 +181,6 @@ import (
 	"github.com/pedroalbanese/zuc/eea3"
 	"github.com/pedroalbanese/zuc/eia3"
 	"github.com/zeebo/blake3"
-	CFB8 "github.com/pedroalbanese/roottk/cfb8"
-	b32 "encoding/base32"
-	b64 "encoding/base64"
-	c509 "github.com/pedroalbanese/gmsm/x509"
-	groestl512 "github.com/pedroalbanese/groestl"
-	passwordvalidator "github.com/pedroalbanese/go-password-validator"
-	skeincipher "github.com/pedroalbanese/skein-1"
-	sm2p256v1 "github.com/pedroalbanese/sm2"
-	sm9p256v1 "github.com/pedroalbanese/sm9"
-	zuc2 "github.com/emmansun/gmsm/zuc"
 )
 
 var (
@@ -1201,7 +1201,7 @@ func main() {
 			iv, _ = hex.DecodeString(*vector)
 			copy(nonce[:], iv)
 		} else {
-			fmt.Fprintf(os.Stderr, "IV= %x\n", nonce)
+			fmt.Fprintf(os.Stderr, "IV= %x\n", iv)
 		}
 		cypher, _ := chacha20.NewUnauthenticatedCipher(key1, nonce[:])
 		cypher.XORKeyStream(buf[:n], buf[:n])
@@ -1791,6 +1791,10 @@ func main() {
 
 		nonce := make([]byte, aead.NonceSize(), aead.NonceSize()+len(msg)+aead.Overhead())
 
+		if _, err := io.ReadFull(rand.Reader, nonce); err != nil {
+			log.Fatal(err)
+		}
+
 		out := aead.Seal(nonce, nonce, msg, []byte(*info))
 		fmt.Printf("%s", out)
 
@@ -1858,6 +1862,9 @@ func main() {
 
 		nonce, msg := msg[:aead.NonceSize()], msg[aead.NonceSize():]
 
+		if _, err := io.ReadFull(rand.Reader, nonce); err != nil {
+			log.Fatal(err)
+		}
 		out, err := aead.Open(nil, nonce, msg, []byte(*info))
 		if err != nil {
 			log.Fatal(err)
@@ -2214,6 +2221,10 @@ func main() {
 
 		nonce := make([]byte, aead.NonceSize(), aead.NonceSize()+len(msg)+aead.Overhead())
 
+		if _, err := io.ReadFull(rand.Reader, nonce); err != nil {
+			log.Fatal(err)
+		}
+
 		out := aead.Seal(nonce, nonce, msg, []byte(*info))
 		fmt.Printf("%s", out)
 
@@ -2331,6 +2342,10 @@ func main() {
 			msg := buf.Bytes()
 
 			nonce := make([]byte, aead.NonceSize(), aead.NonceSize()+len(msg)+aead.Overhead())
+
+			if _, err := io.ReadFull(rand.Reader, nonce); err != nil {
+				log.Fatal(err)
+			}
 
 			out := aead.Seal(nonce, nonce, msg, []byte(*info))
 			fmt.Printf("%s", out)
@@ -2529,6 +2544,10 @@ func main() {
 		msg := buf.Bytes()
 
 		nonce := make([]byte, aead.NonceSize(), aead.NonceSize()+len(msg)+aead.Overhead())
+
+		if _, err := io.ReadFull(rand.Reader, nonce); err != nil {
+			log.Fatal(err)
+		}
 
 		out := aead.Seal(nonce, nonce, msg, []byte(*info))
 		fmt.Printf("%s", out)
@@ -3646,6 +3665,10 @@ func main() {
 		msg := buf.Bytes()
 
 		nonce := make([]byte, aead.NonceSize(), aead.NonceSize()+len(msg)+aead.Overhead())
+
+		if _, err := io.ReadFull(rand.Reader, nonce); err != nil {
+			log.Fatal(err)
+		}
 
 		out := aead.Seal(nonce, nonce, msg, []byte(*info))
 		fmt.Printf("%s", out)
