@@ -2,7 +2,7 @@
 ### Graphical User Interface Prototype
 
 #### Components
-- EDGETk CLI
+- ROOTTk CLI
 - Busybox
 
 Under development.
