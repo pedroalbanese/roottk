@@ -1,6 +1,6 @@
 ; #INDEX# =======================================================================================================================
 ; Title .........: AUTO Toolkit Graphical User Interface
-; AutoIt Version : 3.3.14.5
+; AutoIt Version : 3.3.12.0
 ; Language ......: English
 ; Description ...: Handler/Wrapper for ROOTTk Golang Tool Functions.
 ; Author(s) .....: Pedro F. Albanese <pedroalbanese@hotmail.com>
@@ -58,11 +58,11 @@ Func Main()
 						$iAlgorithm = "fp512bn"
 					Case "ANSSI FRP256v1"
 						$iAlgorithm = "frp256v1"
-					Case "Secp160k1"
+					Case "Koblitz (Secp160k1)"
 						$iAlgorithm = "secp160k1"
-					Case "Secp192k1"
-						$iAlgorithm = "secp192k1"
-					Case "Secp256k1"
+					Case "Koblitz (Secp192k1)"
+						$iAlgorithm = "secp1921"
+					Case "Koblitz (Secp256k1)"
 						$iAlgorithm = "secp256k1"
 					Case "NUMSP256d1"
 						$iAlgorithm = "numsp256d1"
@@ -486,7 +486,7 @@ Func Main()
 						$radioval = "String"
 				EndSelect
 				If $radioval = "File" Then
-					$CMD = "echo [Signature] > " & @TempDir & "Sign.txt & roottk -sign -algorithm " & $iAlgorithm  & " -md " & $iHash  & " -key " & $sRead & " < " & $sFile & " | roottk -util unix2dos >> " & @TempDir & "Sign.txt"
+					$CMD = "echo [Signature] > " & @TempDir & "Sign.txt & roottk -sign -algorithm " & $iAlgorithm  & " -md " & $iHash  & " -key " & $sRead & " < " & '"' & $sFile & '"' & " | roottk -util unix2dos >> " & @TempDir & "Sign.txt"
 					RunWait(@ComSpec & " /c " & $CMD, "", @SW_HIDE, 6)
 				ElseIf $radioval = "String" Then
 					$CMD = "echo [Signature] > " & @TempDir & "Sign.txt & busybox echo -n " & $xRead & " | roottk -sign -algorithm " & $iAlgorithm  & " -md " & $iHash  & " -key " & $sRead & " | roottk -util unix2dos >> " & @TempDir & "Sign.txt"
@@ -706,7 +706,7 @@ Func Main()
 						$radioval = "String"
 				EndSelect
 				If $radioval = "File" Then
-					$CMD = "roottk -verify -key " & $rRead & " -signature " & $yRead & " -algorithm " & $iAlgorithm  & " -md " & $iHash  & " < " & $sFile & " > " & @TempDir & "Signature.txt"
+					$CMD = "roottk -verify -key " & $rRead & " -signature " & $yRead & " -algorithm " & $iAlgorithm  & " -md " & $iHash  & " < " & '"' & $sFile & '"' & " > " & @TempDir & "Signature.txt"
 					RunWait(@ComSpec & " /c " & $CMD, "", @SW_HIDE, 6)
 				ElseIf $radioval = "String" Then
 					$CMD = "busybox echo -n " & $xRead & " | roottk -verify -key " & $rRead & " -signature " & $yRead & " -algorithm " & $iAlgorithm  & " -md " & $iHash  & " > " & @TempDir & "Signature.txt"
@@ -1318,10 +1318,10 @@ Func Main()
 				EndIf
 				If $radioval = "File" Then
 					If GUICtrlRead($Checkbox1) = $GUI_CHECKED Then
-						$CMD = "roottk -crypt enc -mode " & $Mode & " -info " & $yRead & " -cipher " & $iAlgorithm & " -key """ & $xRead & """ < " & $sFile & " > " & $xFile
+						$CMD = "roottk -crypt enc -mode " & $Mode & " -info " & $yRead & " -cipher " & $iAlgorithm & " -key """ & $xRead & """ < " & '"' & $sFile & '"' " > " & $xFile
 						RunWait(@ComSpec & " /c " & $CMD, "", @SW_HIDE, 6)
 					Else
-						$CMD = "roottk -crypt enc -mode " & $DMode & " -cipher " & $iAlgorithm & " -key " & $xRead & " -iv """ & $aRead & """ < " & $sFile & " > " & $xFile
+						$CMD = "roottk -crypt enc -mode " & $DMode & " -cipher " & $iAlgorithm & " -key " & $xRead & " -iv """ & $aRead & """ < " & '"' & $sFile & '"' & " > " & $xFile
 						RunWait(@ComSpec & " /c " & $CMD, "", @SW_HIDE, 6)
 					EndIf
 					MsgBox($MB_SYSTEMMODAL, "", "Encryption" & @CRLF & " Done")
@@ -1432,10 +1432,10 @@ Func Main()
 				EndIf
 				If $radioval = "File" Then
 					If GUICtrlRead($Checkbox1) = $GUI_CHECKED Then
-						$CMD = "roottk -crypt dec -mode " & $Mode & " -info " & $yRead & " -cipher " & $iAlgorithm & " -key " & $xRead & " < " & $sFile & " > " & $xFile
+						$CMD = "roottk -crypt dec -mode " & $Mode & " -info " & $yRead & " -cipher " & $iAlgorithm & " -key " & $xRead & " < " & '"' & $sFile & '"' & " > " & $xFile
 						RunWait(@ComSpec & " /c " & $CMD, "", @SW_HIDE, 6)
 					Else
-						$CMD = "roottk -crypt dec -mode " & $DMode & " -key " & $xRead & " -cipher " & $iAlgorithm & " -iv """ & $aRead & """ < " & $sFile & " > " & $xFile
+						$CMD = "roottk -crypt dec -mode " & $DMode & " -key " & $xRead & " -cipher " & $iAlgorithm & " -iv """ & $aRead & """ < " & '"' & $sFile & '"' & " > " & $xFile
 						RunWait(@ComSpec & " /c " & $CMD, "", @SW_HIDE, 6)
 					EndIf
 					MsgBox($MB_SYSTEMMODAL, "", "Decryption" & @CRLF & " Done")
@@ -1568,14 +1568,14 @@ Func Main()
 				Global $sFile = GUICtrlRead($Input5)
 				If $radioval = "File" Then
 					If GUICtrlRead($Checkbox2) = $GUI_CHECKED Then
-						$CMD = "echo [Digest] > " & @TempDir & "Digest.txt & roottk -mac hmac -md " & $iHash & " -key """ & $rRead & """ < " & $sFile & " >> " & @TempDir & "Digest.txt"
+						$CMD = "echo [Digest] > " & @TempDir & "Digest.txt & roottk -mac hmac -md " & $iHash & " -key """ & $rRead & """ < " & '"' & $sFile & '"' & " >> " & @TempDir & "Digest.txt"
 						RunWait(@ComSpec & " /c " & $CMD, "", @SW_HIDE, 6)
 						$id = "MAC-" & $idHash
 						$Result = IniRead(@TempDir & "Digest.txt", "Digest", $id, "Error.")
 						GUICtrlSetData($Edit16, $Result)
 						FileDelete(@TempDir & "Digest.txt")
 					Else
-						$CMD = "roottk -digest - -md " & $iHash & " -key " & $rRead & " -key """ & $rRead & """ < " & $sFile & " > " & @TempDir & "Digest.txt"
+						$CMD = "roottk -digest - -md " & $iHash & " -key " & $rRead & " -key """ & $rRead & """ < " & '"' & $sFile & '"' & " > " & @TempDir & "Digest.txt"
 						RunWait(@ComSpec & " /c " & $CMD, "", @SW_HIDE, 6)
 						$Result = FileRead(@TempDir & "Digest.txt")
 						GUICtrlSetData($Edit16, $Result)
@@ -1706,13 +1706,13 @@ Func Main()
 				Global $sFile = GUICtrlRead($Input5)
 				If $radioval = "File" Then
 					If GUICtrlRead($Checkbox2) = $GUI_CHECKED Then
-						$CMD = "roottk -mac hmac -md " & $iHash & " -key """ & $rRead & """ -signature " & $xRead & " < " & $sFile & " > " & @TempDir & "Digest.txt"
+						$CMD = "roottk -mac hmac -md " & $iHash & " -key """ & $rRead & """ -signature " & $xRead & " < " & '"' & $sFile & '"' & " > " & @TempDir & "Digest.txt"
 						RunWait(@ComSpec & " /c " & $CMD, "", @SW_HIDE, 6)
 						Local $sFileRead = FileRead(@TempDir & "Digest.txt")
 						MsgBox($MB_SYSTEMMODAL, "", "Digest Verification:" & @CRLF & $sFileRead)
 						FileDelete(@TempDir & "Digest.txt")
 					Else
-						$CMD = "roottk -digest - -md " & $iHash & " < """ & $sFile & """ -key """ & $rRead & """ > " & @TempDir & "Digest.txt"
+						$CMD = "roottk -digest - -md " & $iHash & " < """ & '"' & $sFile & '"' & """ -key """ & $rRead & """ > " & @TempDir & "Digest.txt"
 						RunWait(@ComSpec & " /c " & $CMD, "", @SW_HIDE, 6)
 						$Result = FileRead(@TempDir & "Digest.txt")
 						If $Result = $xRead Then
@@ -2371,7 +2371,7 @@ Func Main()
 				EndSelect
 				$id = "MAC-" & $idCipher
 				If $radioval = "File" Then
-					$CMD = "echo [MAC] > " & @TempDir & "MAC.txt & roottk " & $iCommand & " " & $iAlgorithm & " -key """ & $rRead & """ -iv """ & $xRead & """ < " & $sFile & " >> " & @TempDir & "MAC.txt"
+					$CMD = "echo [MAC] > " & @TempDir & "MAC.txt & roottk " & $iCommand & " " & $iAlgorithm & " -key """ & $rRead & """ -iv """ & $xRead & """ < " & '"' & $sFile & '"' & " >> " & @TempDir & "MAC.txt"
 				Else
 					$CMD = "echo [MAC] > " & @TempDir & "MAC.txt & busybox echo -n """ & $sRead & """ |roottk " & $iCommand & " " & $iAlgorithm & " -key """ & $rRead & """ -iv """ & $xRead & """ >> " & @TempDir & "MAC.txt"
 				EndIf
@@ -2471,7 +2471,7 @@ Func Main()
 						$radioval = "String"
 				EndSelect
 				If $radioval = "File" Then
-					$CMD = "roottk " & $iCommand & " " & $iAlgorithm & " -key """ & $rRead & """ -iv """ & $xRead & """ -signature """ & $yRead & """ < " & $sFile & " > " & @TempDir & "Check.txt"
+					$CMD = "roottk " & $iCommand & " " & $iAlgorithm & " -key """ & $rRead & """ -iv """ & $xRead & """ -signature """ & $yRead & """ < " & '"' & $sFile & '"' & " > " & @TempDir & "Check.txt"
 				Else
 					$CMD = "busybox echo -n """ & $sRead & """ |roottk " & $iCommand & " " & $iAlgorithm & " -key """ & $rRead & """ -iv """ & $xRead & """ -signature """ & $yRead & """ > " & @TempDir & "Check.txt"
 				EndIf
