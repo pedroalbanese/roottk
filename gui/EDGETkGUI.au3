@@ -973,8 +973,10 @@ Func Main()
 				$CMD = "busybox echo -n """ & $CipherText & """ | edgetk -util b32dec+ | edgetk -util hexenc > " & @TempDir & "Ciphertext.txt & edgetk -pkeyutl dec -algorithm " & $iAlgorithm & " -key " & $PrivateKey & " < " & @TempDir & "Ciphertext.txt > " & @TempDir & "Plaintext.txt"
 				RunWait(@ComSpec & " /c " & $CMD, "", @SW_HIDE, 6)
 				$Result = FileRead(@TempDir & "Plaintext.txt")
-				$string = StringSplit($Result, @CRLF)
-				GUICtrlSetData($Edit11, $string[1])
+;				$string = StringSplit($Result, @CRLF)
+;				GUICtrlSetData($Edit11, $string[1])
+				$LineFeedStrip = StringReplace($Result, @LF, "")
+				GUICtrlSetData($Edit11, $LineFeedStrip)
 ;				FileDelete("Plaintext.txt")
 ;				FileDelete("Ciphertext.txt")
 				$CMD = "edgetk -shred " & @TempDir & "Plaintext.txt -iter 5"
@@ -1011,11 +1013,18 @@ Func Main()
 					Case "AES (Rijndael)"
 						$iAlgorithm = "aes"
 						$Bits = 256
+					Case "Anubis"
+						$iAlgorithm = "anubis"
+						$Bits = 128
 					Case "ARIA"
 						$iAlgorithm = "aria"
 						$Bits = 256
 					Case "Chacha20Poly1305"
-						$iAlgorithm = "chacha20"
+						If GUICtrlRead($Checkbox1) = $GUI_CHECKED Then
+							$iAlgorithm = "chacha20poly1305"
+						Else
+							$iAlgorithm = "chacha20"
+						EndIf
 						$Bits = 256
 					Case "Serpent"
 						$iAlgorithm = "serpent"
@@ -1113,12 +1122,20 @@ Func Main()
 					Case "AES (Rijndael)"
 						$iAlgorithm = "aes"
 						$Bits = 128
+					Case "Anubis"
+						$iAlgorithm = "anubis"
+						$Bits = 128
 					Case "ARIA"
 						$iAlgorithm = "aria"
 						$Bits = 128
 					Case "Chacha20Poly1305"
-						$iAlgorithm = "chacha20"
-						$Bits = 0
+						If GUICtrlRead($Checkbox1) = $GUI_CHECKED Then
+							$iAlgorithm = "chacha20poly1305"
+							$Bits = 0
+						Else
+							$iAlgorithm = "chacha20"
+							$Bits = 192
+						EndIf
 					Case "Serpent"
 						$iAlgorithm = "serpent"
 						$Bits = 128
@@ -1214,10 +1231,16 @@ Func Main()
 				Switch GUICtrlRead($iBulk)
 					Case "AES (Rijndael)"
 						$iAlgorithm = "aes"
+					Case "Anubis"
+						$iAlgorithm = "anubis"
 					Case "ARIA"
 						$iAlgorithm = "aria"
 					Case "Chacha20Poly1305"
-						$iAlgorithm = "chacha20"
+						If GUICtrlRead($Checkbox1) = $GUI_CHECKED Then
+							$iAlgorithm = "chacha20poly1305"
+						Else
+							$iAlgorithm = "chacha20"
+						EndIf
 					Case "Serpent"
 						$iAlgorithm = "serpent"
 					Case "Kuznechik"
@@ -1322,10 +1345,16 @@ Func Main()
 				Switch GUICtrlRead($iBulk)
 					Case "AES (Rijndael)"
 						$iAlgorithm = "aes"
+					Case "Anubis"
+						$iAlgorithm = "anubis"
 					Case "ARIA"
 						$iAlgorithm = "aria"
 					Case "Chacha20Poly1305"
-						$iAlgorithm = "chacha20"
+						If GUICtrlRead($Checkbox1) = $GUI_CHECKED Then
+							$iAlgorithm = "chacha20poly1305"
+						Else
+							$iAlgorithm = "chacha20"
+						EndIf
 					Case "Serpent"
 						$iAlgorithm = "serpent"
 					Case "Kuznechik"
@@ -1412,7 +1441,7 @@ Func Main()
 					MsgBox($MB_SYSTEMMODAL, "", "Decryption" & @CRLF & " Done")
 				ElseIf $radioval = "String" Then
 					If GUICtrlRead($Checkbox1) = $GUI_CHECKED Then
-						$CMD = "busybox echo -n " & $rRead & " | edgetk -util " & $command & " | edgetk -crypt dec -mode " & $Mode & " -info " & $yRead & "  -cipher " & $iAlgorithm & " -key " & $xRead & " > " & @TempDir & "Plaintext.txt"
+						$CMD = "busybox echo -n " & $rRead & " | edgetk -util " & $command & " | edgetk -crypt dec -mode " & $Mode & " -info " & $yRead & " -cipher " & $iAlgorithm & " -key " & $xRead & " > " & @TempDir & "Plaintext.txt"
 						RunWait(@ComSpec & " /c " & $CMD, "", @SW_HIDE, 6)
 					Else
 						$CMD = "busybox echo -n " & $rRead & " | edgetk -util " & $command & " | edgetk -crypt dec -mode " & $DMode & " -key " & $xRead & " -cipher " & $iAlgorithm & " -iv """ & $aRead & """ > " & @TempDir & "Plaintext.txt"
@@ -1953,6 +1982,9 @@ Func Main()
 						Case "AES (Rijndael)"
 							$iAlgorithm = "aes"
 							$length = 128
+						Case "Anubis"
+							$iAlgorithm = "anubis"
+							$length = 64
 						Case "ARIA"
 							$iAlgorithm = "aria"
 							$length = 128
@@ -2080,6 +2112,10 @@ Func Main()
 						Case "AES (Rijndael)"
 							$iAlgorithm = "aes"
 							$length = 128
+							$iv = 0
+						Case "Anubis"
+							$iAlgorithm = "anubis"
+							$length = 64
 							$iv = 0
 						Case "ARIA"
 							$iAlgorithm = "aria"
@@ -2231,6 +2267,9 @@ Func Main()
 						Case "AES (Rijndael)"
 							$iAlgorithm = "aes"
 							$idCipher = "AES"
+						Case "Anubis"
+							$iAlgorithm = "anubis"
+							$idCipher = "ANUBIS"
 						Case "ARIA"
 							$iAlgorithm = "aria"
 							$idCipher = "ARIA"
@@ -2359,6 +2398,8 @@ Func Main()
 					Switch GUICtrlRead($Combo11)
 						Case "AES (Rijndael)"
 							$iAlgorithm = "aes"
+						Case "Anubis"
+							$iAlgorithm = "anubis"
 						Case "ARIA"
 							$iAlgorithm = "aria"
 						Case "Serpent"
