@@ -3,6 +3,7 @@
 [![GoDoc](https://godoc.org/github.com/pedroalbanese/roottk?status.png)](http://godoc.org/github.com/pedroalbanese/roottk)
 [![Go Report Card](https://goreportcard.com/badge/github.com/pedroalbanese/roottk)](https://goreportcard.com/report/github.com/pedroalbanese/roottk)
 [![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/pedroalbanese/roottk)](https://golang.org)
+[![Lines of code](https://img.shields.io/tokei/lines/github/pedroalbanese/roottk)](https://github.com/pedroalbanese/roottk)
 
 <div align="center">
 </div>
