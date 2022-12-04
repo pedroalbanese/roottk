@@ -187,6 +187,88 @@ Multi purpose cross-platform hybrid cryptography tool for symmetric and asymmetr
     
     - MAC refers to keyed hash function, like HMAC. 
 
+### History
+
+<dl>
+<dt>500 BC</dt>
+<dd> Atbash Cipher</dd>
+<dd>Substituction Ciphers</dd>
+
+<dt>200 BC</dt>
+<dd>Caesar Ciphers</dd>
+
+<dt>750 AD</dt>
+<dd>Al-Khalil </dd>
+<dd>Permutation Ciphers</dd>
+
+<dt>850 AD</dt>
+<dd>Al-Kindi and the birth of cryptanalysis</dd>
+<dd>Polyalphabetic Ciphers</dd>
+<dd>Transposition Ciphers</dd>
+
+<dt>1474 AD</dt>
+<dd>Cicco Simonetta had written a manual on deciphering encryptions of Latin and Italian text.</dd>
+
+<dt>1499 AD</dt>
+<dd>Abbot Johannes Trithemius: Steganographia</dd>
+<dd>Steganography</dd>
+
+<dt>1605 AD</dt>
+<dd>Baconian Cipher (Steganography)</dd>
+
+<dt>1920</dt>
+<dd> ChaoCipher</dd>
+<dd> Enigma</dd>
+
+<dt>1933</dt>
+<dd> Enigma fully broken by Marian Rejewski</dd>
+<dd> Electro-mechanical Bomb </dd>
+
+<dt>1961</dt>
+<dd>W. Wesley Peterson: CRC</dd>
+
+<dt>1971</dt>
+<dd>Lucifer Block Cipher</dd>
+<dd>Feistel Network Structure</dd>
+
+<dt>1975</dt>
+<dd>DES: Data Encryption Standard (NSA)</dd>
+<dd>GOST: GOvernment STandard (USSR)</dd>
+
+<dt>1987</dt>
+<dd>RC2 Block Cipher</dd>
+<dd>RC4 Stream Cipher</dd>
+
+<dt>1991</dt>
+<dd>IDEA: International Data Encryption Algorithm</dd>
+
+<dt>1993</dt>
+<dd>SHA-0 (NSA)</dd>
+<dd>Message Digest Algorithms</dd>
+<dd>ISAAC Stream Cipher</dd>
+
+<dt>1994</dt>
+<dd>RC4 code revealed by reverse engineering</bb>
+<dd>RC5 Block Cipher</bb>
+<dd>GOST94 Message Digest</bb>
+
+<dt>1995</dt>
+<dd>Adler-32</bb>
+<dd>SHA-1</bb>
+
+<dt>1996</dt>
+<dd>CAST5 Block Cipher</bb>
+
+<dt>1998</dt>
+<dd>RC6 Block Cipher</dd>
+
+<dt>1999</dt>
+<dd>DES fully broken</dd>
+<dd>3DES Block Cipher</dd>
+<dd>Anubis and Whirlpool</dd>
+<dd>Substituction and Permutation Network Structure</dd>
+</dl>
+
 ### AEAD تشفير مصدق مع البيانات المرتبطة
 
 Authenticated encryption (AE) and authenticated encryption with associated data (AEAD) are forms of encryption which simultaneously assure the confidentiality and authenticity of data. Provides both authenticated encryption (confidentiality and authentication) and the ability to check the integrity and authentication of additional authenticated data (AAD) that is sent in the clear.
