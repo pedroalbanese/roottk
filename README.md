@@ -232,7 +232,7 @@ These curves are elliptic curves over a prime field, just like the NIST or Brain
    - Bin to Hex/Hex to Bin string conversion
    - Data sanitization method
    - LZMA, GZIP, Bzip2, Zlib and Brotli compression algorithms
-   - Random Art Public key Fingerprint (ssh-keygen equivalent)
+   - Random Art (OpenSSH equivalent)
 
 ## IV. Usage يستخدم
 <pre> -algorithm string
