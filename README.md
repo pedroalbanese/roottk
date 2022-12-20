@@ -438,16 +438,16 @@ Passwords must have at least 128-bit of entropy, otherwise exit code is 1.
   - Suggesting new features or enhancements
   - Improve/fix documentation
 
-## VIII. Acknoledgment
+## VIII. Acknoledgments
 
-- [Sergey Matveev](http://www.cypherpunks.ru/) (GoGOST Library Author, Contributor)
+- [Sergey Matveev](http://www.cypherpunks.ru/) (GoGOST Library Author)
 - [RyuaNerin](http://github.com/RyuaNerin) (go-krypto Library Author)
 - [Chris Howey](https://github.com/howeyc) (Contributor, PBKDF2 function)
 - [Leonard von Hagen](https://github.com/scrouthtv) (Contributor, GOSTLS patch)
 - [Paul Scheduikat](https://github.com/lu4p) (Contributor, Introduction to the use of flags in Go)
-- [Chenxu](https://github.com/czdsdo) (GMSM Library Author, Contributor)
+- [Chenxu](https://github.com/czdsdo) (GMSM Library Author)
 - [Suzhou Tongji Fintech Research Institute](https://github.com/tjfoc) (GMSM Library Author)
-- [Damian Gryski](https://github.com/dgryski) (Anubis, Present, SipHash, Misty1 Libraries Author, Contributor)
+- [Damian Gryski](https://github.com/dgryski) (Anubis, Present, SipHash, Misty1 Libraries Author)
 
 ## Ω License
 
