@@ -111,7 +111,6 @@ github.com/pedroalbanese/dos2unix v1.0.1 h1:xRWUMC6c8teT66QXhb24CXGQtbMMSVGbql0Q
 github.com/pedroalbanese/dos2unix v1.0.1/go.mod h1:p2GMz1ShjQUSJiMbDfppiUeMb2RPi4AUVGaA6qSicWU=
 github.com/pedroalbanese/eccrypt v0.0.2 h1:DzfW/xHt7XIQu2Oh3Qo3lTlwyVAw+GeeiybREXfWVHE=
 github.com/pedroalbanese/eccrypt v0.0.2/go.mod h1:ZheyYWbrNgc6TmjXrBFKBJe4+yafltg4RNC2Vqxh8KY=
-github.com/pedroalbanese/edgetk v1.2.10 h1:K1WcCZutk8PMAS+ZPCPiUSoQK9idTkxBL9GshdS7rqw=
 github.com/pedroalbanese/frp256v1 v0.0.1 h1:6NynJBplTMOFRfCRRvpv7DdKxL/piu/I3aJhiJVXFOM=
 github.com/pedroalbanese/frp256v1 v0.0.1/go.mod h1:SR4Hs4jO6qwp6ETOZfL5C1msUCU//1vkM+482MiBTRU=
 github.com/pedroalbanese/gmsm v1.5.0 h1:qWliWkoYrHdR5GKdvHvZAjErtB+CCkn4wjux/lnBGXY=
