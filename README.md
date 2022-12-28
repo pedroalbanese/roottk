@@ -19,11 +19,11 @@ Multi purpose cross-platform hybrid cryptography tool for symmetric and asymmetr
     | 112                 | 2048                  | 224            | 
     | 128                 | 3072                  | 256            | 
     | 192                 | 7680                  | 384            | 
-    | 256                 | 15360                 | 512            | 
+    | 256                 | 15360                 | 512            |  
 
 - I.II. **256-bit> Public Key Algorithms**
 
-    |  Algorithm          | 256 | 512 |ECDH |ECDSA|Encryption| TLS |
+    |  Algorithm          | 256 | 512 |ECDH |ECDSA|Encryption| TLS | 
     |:--------------------|:---:|:---:|:---:|:---:|:--------:|:---:|
     | [BN](https://tools.ietf.org/id/draft-kasamatsu-bncurves-01.html)        | O   | O   | O   | O   | O        |     |
     | Brainpool           | O   | O   | O   | O   | O        |     |
